@@ -2,6 +2,6 @@
 
 
 
-'''
-ㅁㅁㅁ
-'''
+```
+python3 request.py img_links
+```
