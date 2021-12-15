@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vid-python-service
+spec:
+  selector:
+    app: vid-python
+  ports:
+  - protocol: "TCP"
+    port: 16000
+    targetPort: 5001
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vid-python
+spec:
+  selector:
+    matchLabels:
+      app: vid-python
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: vid-python
+    spec:
+      hostNetwork: true
+      schedulerName: my-scheduler
+      containers:
+      - name: vid-python
+        image: stevekim01310/kimjangbak:video
+        imagePullPolicy: IfNotPresent
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: 5001
+      restartPolicy: Always

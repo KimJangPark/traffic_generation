@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: img-python-service
+spec:
+  selector:
+    app: img-python
+  ports:
+  - protocol: "TCP"
+    port: 16000
+    targetPort: 5000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: img-python
+spec:
+  selector:
+    matchLabels:
+      app: img-python
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: img-python
+    spec:
+      hostNetwork: true
+      schedulerName: my-scheduler
+      containers:
+      - name: img-python
+        image: stevekim01310/kimjangbak:image
+        imagePullPolicy: IfNotPresent
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: 5000
+      restartPolicy: Always
