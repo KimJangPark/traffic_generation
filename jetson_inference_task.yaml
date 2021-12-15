@@ -7,8 +7,8 @@ spec:
     app: jetson-python
   ports:
   - protocol: "TCP"
-    port: 16000
-    targetPort: 5002
+    port: 16002
+    targetPort: 5000
   type: LoadBalancer
 
 ---
@@ -35,5 +35,5 @@ spec:
         stdin: true
         tty: true
         ports:
-        - containerPort: 5002
+        - containerPort: 5000
       restartPolicy: Always
