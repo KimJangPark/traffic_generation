@@ -9,7 +9,7 @@ NUM_FILES = 40
 for i in range (NUM_FILES):
 	l = file.readline()
 	print(l)
-	r = requests.get("http://127.0.0.1:5000/?input_URI=%s"%l)
+	r = requests.get("http://127.0.0.1:{}/?input_URI={}".format(sys.argv[2],l)
 	roundtrip = r.elapsed.total_seconds()
 	print()
 	print("Result : " + str(r.json()))
